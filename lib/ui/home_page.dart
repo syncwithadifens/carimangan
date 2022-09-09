@@ -1,4 +1,4 @@
-import 'package:carimangan/modes/restaurant.dart';
+import 'package:carimangan/models/restaurant.dart';
 import 'package:carimangan/ui/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,4 +1,4 @@
-import 'package:carimangan/modes/restaurant.dart';
+import 'package:carimangan/models/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,12 +23,14 @@ class DetailPage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: 300,
                     decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(15)),
-                        image: DecorationImage(
-                            image: NetworkImage(restoData.pictureId),
-                            fit: BoxFit.cover)),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
+                      image: DecorationImage(
+                          image: NetworkImage(restoData.pictureId),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 20),
@@ -77,9 +79,11 @@ class DetailPage extends StatelessWidget {
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 20, bottom: 10),
-                      child: Text('Deskripsi',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      child: Text(
+                        'Deskripsi',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                     ),
                     Text(
                       restoData.description,
@@ -94,9 +98,10 @@ class DetailPage extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 24, top: 10, bottom: 10),
-                child: Text('Minuman',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                child: Text(
+                  'Minuman',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 24),
@@ -113,23 +118,27 @@ class DetailPage extends StatelessWidget {
                           height: 50,
                           alignment: Alignment.bottomLeft,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.grey,
-                              image: const DecorationImage(
-                                  image: AssetImage('assets/img/minuman.png'),
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.grey,
+                            image: const DecorationImage(
+                                image: AssetImage('assets/img/minuman.png'),
+                                fit: BoxFit.cover),
+                          ),
                           child: Container(
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(8)),
-                                  color: Colors.white),
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Text(restoData.menus.drinks[index].name,
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500)),
-                              )),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                ),
+                                color: Colors.white),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Text(
+                                restoData.menus.drinks[index].name,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -159,22 +168,24 @@ class DetailPage extends StatelessWidget {
                           height: 50,
                           alignment: Alignment.bottomCenter,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.grey,
-                              image: const DecorationImage(
-                                  image: AssetImage('assets/img/makanan.png'),
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.grey,
+                            image: const DecorationImage(
+                                image: AssetImage('assets/img/makanan.png'),
+                                fit: BoxFit.cover),
+                          ),
                           child: Container(
-                              width: double.infinity,
-                              color: Colors.brown,
-                              child: Text(
-                                restoData.menus.foods[index].name,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                maxLines: 1,
-                              )),
+                            width: double.infinity,
+                            color: Colors.brown,
+                            child: Text(
+                              restoData.menus.foods[index].name,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              maxLines: 1,
+                            ),
+                          ),
                         ),
                       );
                     },
