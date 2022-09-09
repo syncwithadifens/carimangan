@@ -34,19 +34,20 @@ class HomePage extends StatelessWidget {
                     height: 35,
                     child: TextField(
                       decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(0),
-                          hintText: 'Cari tempat makan',
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.brown,
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.black),
-                          )),
+                        contentPadding: EdgeInsets.all(0),
+                        hintText: 'Cari tempat makan',
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.brown,
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -1,17 +1,11 @@
 import 'package:carimangan/ui/home_page.dart';
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
     Future.delayed(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(
@@ -19,10 +13,6 @@ class _SplashPageState extends State<SplashPage> {
             MaterialPageRoute(
               builder: (context) => const HomePage(),
             )));
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
