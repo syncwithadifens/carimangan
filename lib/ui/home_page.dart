@@ -41,10 +41,14 @@ class HomePage extends StatelessWidget {
                           color: Colors.brown,
                         ),
                         border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                           borderSide: BorderSide(color: Colors.black),
                         ),
                       ),
@@ -67,12 +71,13 @@ class HomePage extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DetailPage(
-                                          restoData: restoData[index],
-                                        ),
-                                      ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailPage(
+                                        restoData: restoData[index],
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: Row(
                                   children: [
@@ -124,15 +129,16 @@ class HomePage extends StatelessWidget {
                                                       color: Colors.red,
                                                       size: 20,
                                                     ),
-                                                    Text(restoData[index].city,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            color: Colors.grey,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400)),
+                                                    Text(
+                                                      restoData[index].city,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -144,9 +150,11 @@ class HomePage extends StatelessWidget {
                                                       color: Colors.yellow,
                                                       size: 20,
                                                     ),
-                                                    Text(restoData[index]
-                                                        .rating
-                                                        .toString()),
+                                                    Text(
+                                                      restoData[index]
+                                                          .rating
+                                                          .toString(),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
