@@ -1,7 +1,9 @@
-import 'package:carimangan/models/restaurant.dart';
+import 'package:carimangan/provider/resto_provider.dart';
 import 'package:carimangan/ui/detail_page.dart';
+import 'package:carimangan/ui/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,40 +30,48 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text('Rekomendasi tempat makan buatmu!'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: SizedBox(
-                    height: 35,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(0),
-                        hintText: 'Cari tempat makan',
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.brown,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchPage(),
+                      ),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.brown),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 30,
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 2),
+                            child: Text(
+                              'Pencarian',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
                 ),
-                FutureBuilder(
-                  future: DefaultAssetBundle.of(context)
-                      .loadString('assets/data/local_restaurant.json'),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final List<RestaurantElement> restoData =
-                          getListResto(snapshot.data!);
+                Consumer<RestoProvider>(
+                  builder: (context, state, _) {
+                    if (state.state == ResultState.hasData) {
+                      var restoData = state.result.restaurants;
                       return Expanded(
                         child: ListView.builder(
                           itemCount: restoData.length,
@@ -74,7 +84,7 @@ class HomePage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailPage(
-                                        restoData: restoData[index],
+                                        id: restoData[index].id,
                                       ),
                                     ),
                                   );
@@ -90,7 +100,7 @@ class HomePage extends StatelessWidget {
                                               BorderRadius.circular(5),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  restoData[index].pictureId),
+                                                  "https://restaurant-api.dicoding.dev/images/medium/${restoData[index].pictureId}"),
                                               fit: BoxFit.cover),
                                         ),
                                       ),
@@ -170,10 +180,48 @@ class HomePage extends StatelessWidget {
                           },
                         ),
                       );
-                    } else {
+                    } else if (state.state == ResultState.loading) {
                       return const Expanded(
                         child: Center(
                           child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else if (state.state == ResultState.noData) {
+                      return Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/img/nodatafound.png',
+                                width: 200,
+                                height: 200,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(state.message),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/img/errror.png',
+                                width: 200,
+                                height: 200,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(state.message),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     }
