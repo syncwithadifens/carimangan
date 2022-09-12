@@ -1,54 +1,46 @@
-import 'package:carimangan/models/restaurant.dart';
 import 'package:flutter/material.dart';
-import '../api/api_service.dart';
+import 'package:carimangan/data/model/search_result.dart';
+import '../data/api_service/api_service.dart';
+import '../utils/result_state.dart';
 
-enum SearchState { loading, noData, hasData, error, noQueri }
-
-class SearchRestoProvider extends ChangeNotifier {
+class SearchProvider extends ChangeNotifier {
   final ApiService apiService;
 
-  SearchRestoProvider({required this.apiService}) {
-    fetcSearchResto();
+  SearchProvider({required this.apiService}) {
+    fetchQueryRestaurant(query);
   }
 
-  late RestoSearch _searchResult;
-  late SearchState _state;
+  SearchResult? _restaurantList;
+  ResultState? _state;
   String _message = '';
-  String query = '';
+  String _query = '';
 
   String get message => _message;
-  RestoSearch get result => _searchResult;
-  SearchState get state => _state;
+  String get query => _query;
+  SearchResult? get result => _restaurantList;
+  ResultState? get state => _state;
 
-  Future<dynamic> fetcSearchResto() async {
-    if (query != "") {
-      try {
-        _state = SearchState.loading;
-        final search = await apiService.searchRestaurant(query);
-        if (search.restaurants.isEmpty) {
-          _state = SearchState.noData;
-          notifyListeners();
-          return _message = 'Tempat makan yang kamu cari tidak ditemukan';
-        } else {
-          _state = SearchState.hasData;
-          notifyListeners();
-          return _searchResult = search;
-        }
-      } catch (e) {
-        _state = SearchState.error;
+  Future<dynamic> fetchQueryRestaurant(String query) async {
+    try {
+      if (query.isNotEmpty) {
+        _state = ResultState.loading;
+        _query = query;
         notifyListeners();
-        return _message = 'Whoops. Terjadi Kesalahan!';
+        final restaurantList = await apiService.searchResult(query);
+        if (restaurantList.restaurants.isEmpty) {
+          _state = ResultState.noData;
+          notifyListeners();
+          return _message = 'Tempat yang anda cari tidak ada di data kami';
+        } else {
+          _state = ResultState.hasData;
+          notifyListeners();
+          return _restaurantList = restaurantList;
+        }
       }
-    } else {
-      _state = SearchState.noQueri;
+    } catch (e) {
+      _state = ResultState.error;
       notifyListeners();
-      return _message = 'No queri';
+      return _message = 'Oops, Terjadi Kesalahan';
     }
-  }
-
-  void addQueri(String query) {
-    this.query = query;
-    fetcSearchResto();
-    notifyListeners();
   }
 }
